@@ -32,6 +32,7 @@ Whenever consuming, updating, or referencing versions of external components, th
 
 *   **Individual Focused Queries**: The agent **MUST NOT** run single, consolidated queries for multiple packages, actions, or images (e.g., searching for four actions at once). Multi-item searches frequently return outdated or aggregated summaries. Run individual, focused queries for each dependency.
 *   **Primary Source Verification**: The agent **MUST** look beyond a search engine's synthesized summary block and cross-reference with primary source evidence, such as the specific GitHub release tags, official repository release pages, NPM/PyPI registries, or official changelogs, to guarantee that the version identified is active and truly the latest.
+*   **Do NOT Year-Anchor Search Queries**: Appending a year (e.g., "2025") to a version search query will bias results toward older indexed pages from that year, returning *stale* data. **Always** search without a year anchor and instead navigate directly to the primary release page (e.g., `https://github.com/<owner>/<action>/releases`) to confirm the most recent release tag.
 
 ---
 
