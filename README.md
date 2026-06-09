@@ -30,7 +30,7 @@ Multi-arch container builds (targeting `linux/amd64` and `linux/arm64`) and auto
 │       └── PROJECT_PLANNING.md # Project scoping template
 ├── .editorconfig               # Indentation and line-ending standards
 ├── CLAUDE.md                   # Agent rules index for this repo
-├── LICENSE                     # CC0 1.0 Universal
+├── LICENSE                     # MIT License
 ├── README.md                   # This file
 └── README.template.md          # Blank README template for child repos scaffolded from this one
 ```
@@ -60,4 +60,4 @@ If you are an AI coding agent working in this repository:
 
 ## Licensing
 
-CC0 1.0 Universal (Public Domain). See [LICENSE](LICENSE).
+Licensed under the MIT License. See [LICENSE](LICENSE).
