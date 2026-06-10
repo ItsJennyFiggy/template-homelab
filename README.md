@@ -8,7 +8,21 @@ A scaffolding template for single-purpose homelab applications deployed on a Mac
 
 This template establishes the standard structure, agent rules, and workflow conventions for homelab apps. It enforces strict environment parameterization (no hardcoded config) and is designed for services that run as containers on the Mac Mini.
 
-Multi-arch container builds (targeting `linux/amd64` and `linux/arm64`) and automated publish to `ghcr.io` are planned as part of BOOT-6 and are not yet present in this template — they will be added when the homelab CD pipeline is implemented.
+## Docker CD
+
+Multi-arch container images (targeting `linux/amd64` and `linux/arm64`) are published automatically to `ghcr.io/itsjennyfiggy/<repo-name>` on every release tag created by release-please.
+
+**Pull the image:**
+
+```bash
+# Pin to a specific release
+docker pull ghcr.io/<owner>/<repo>:v1.2.3
+
+# Or use the latest tag (always points to the most recent release)
+docker pull ghcr.io/<owner>/<repo>:latest
+```
+
+The `.github/workflows/docker-buildx.yml` workflow triggers on any `v*` tag push. When release-please opens and merges a Release PR, it creates the tag automatically, which in turn triggers the Docker build and push.
 
 ---
 
