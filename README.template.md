@@ -54,6 +54,24 @@ To run the local test suite and audit code coverage (refer to `.agents/rules/tes
 
 ---
 
+## Docker CD
+
+This repository includes `.github/workflows/docker-buildx.yml`, which builds and pushes a multi-arch image (`linux/amd64` + `linux/arm64`) to `ghcr.io/itsjennyfiggy/{{PROJECT_NAME}}` on every `v*` release tag.
+
+**Pull the image:**
+
+```bash
+# Pin to a specific release
+docker pull ghcr.io/itsjennyfiggy/{{PROJECT_NAME}}:v1.2.3
+
+# Or use the floating latest tag
+docker pull ghcr.io/itsjennyfiggy/{{PROJECT_NAME}}:latest
+```
+
+The tag is created automatically when release-please merges a Release PR. No manual tagging is required. Replace the placeholder `Dockerfile` at the repository root with your application's build instructions.
+
+---
+
 ## 🤖 AI Agent Guidelines
 
 If you are an AI coding agent working in this repository:
