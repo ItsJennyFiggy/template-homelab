@@ -76,10 +76,25 @@ Whenever executing remote Git commands (such as `git pull`, `git fetch`, or `git
         ```bash
         GH_TOKEN="" GITHUB_TOKEN="" git pull origin main
         ```
-    -   **GitHub App Repositories**: If the project has a `.env.git-app` configuration file present, you **MUST** configure the local `gh` wrapper using the `git-auth` skill, and prepend the wrapper's bin directory to the `PATH` for all git/gh CLI calls:
-        ```bash
-        PATH="$PWD/.agents/bin:$PATH" git pull origin main
-        ```
+    -   **GitHub App Repositories**: Agent containers receive a short-lived GitHub token via `/run/gh-token/token` (tmpfs), refreshed automatically by the container startup init. No manual token sourcing is needed. The token is minted by the `token-provider` sidecar; its scope is configured in the sidecar policy.
 3.  **App Configuration Shield**:
     If you configure GitHub App credentials in `.env.git-app` and `.env.git-app.pem`, you **MUST** immediately append those files to `.gitignore` to prevent committing private keys or app credentials to the repository.
+
+---
+
+## 🤝 6. Merge Policy & Authority
+
+To prevent API failures and respect organization boundaries during pull request merges:
+
+1.  **Squash-Merge Policy:**
+    All repositories in this organization strictly enforce **squash-merge only**. You MUST use the squash option when merging via the CLI:
+    ```bash
+    gh pr merge --squash
+    ```
+    Attempting a standard merge (`--merge`) will fail at the GitHub API.
+
+2.  **Authority Boundaries by Repository Type:**
+    *   **Private Zone B Repositories:** You are permitted to self-merge your own pull requests once CI is green.
+    *   **Public and Protected Repositories:** You MUST NOT self-merge. Explicit per-action user authorization is required. Use the admin bypass flag (`--admin`) only when the user has explicitly authorized the action for the current session.
+
 
